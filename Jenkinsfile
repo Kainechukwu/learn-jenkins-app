@@ -18,7 +18,7 @@ pipeline {
                     echo "Ensuring PNPM is available"
                     corepack enable
                     corepack prepare pnpm@latest --activate
-                    
+                    cd ${WORKSPACE}
                     echo "Installing dependencies"
                     pnpm install --frozen-lockfile
                     
