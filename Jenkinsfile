@@ -22,9 +22,11 @@ pipeline {
             }
         }
         stage('Run unit tests') {
-            sh '''
+           steps {
+             sh '''
             npm run test
             '''
+           }
         }
     }
 }
