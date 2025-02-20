@@ -2,10 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 sh '''
-                    echo "loging files and node versions"
+                    echo "logging files and node versions"
                     ls -la
                     node -v  
                     npm -v   
