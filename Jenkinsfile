@@ -15,8 +15,15 @@ pipeline {
                     ls -la
                     node -v  
                     npm -v   
-                    pnpm ci
-                    pnpm build   
+                    echo "Ensuring PNPM is available"
+                    corepack enable
+                    corepack prepare pnpm@latest --activate
+                    
+                    echo "Installing dependencies"
+                    pnpm install --frozen-lockfile
+                    
+                    echo "Building project"
+                    pnpm build  
                 '''
             }
         }
