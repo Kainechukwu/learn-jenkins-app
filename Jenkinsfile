@@ -20,6 +20,11 @@ pipeline {
                     ls -la 
                 '''
             }
+        },
+        stage('Run unit tests') {
+            sh '''
+            npm run test
+            '''
         }
     }
 }
