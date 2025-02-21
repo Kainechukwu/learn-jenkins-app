@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            agent {
+          agent {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
                 }
             }
+        stage('Build') {
+          
             steps {
                 sh '''
                     echo "logging files and node versions"
@@ -21,13 +22,8 @@ pipeline {
                 '''
             }
         }
-              stage('Run Unit Tests') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+        stage('Run Unit Tests') {     
+            
             steps {
                 sh '''
                     echo "Running unit tests"
