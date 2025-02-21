@@ -28,7 +28,7 @@ pipeline {
                 sh '''
                     echo "Test stage"
                    # npm ci
-                   # npm run test 
+                    npm test 
                    test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
                    
                 '''
