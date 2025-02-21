@@ -21,6 +21,22 @@ pipeline {
                 '''
             }
         }
+              stage('Run Unit Tests') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    echo "Running unit tests"
+                    npm ci
+                    npm run test 
+                   
+                '''
+            }
+        }
    
     }
 }
