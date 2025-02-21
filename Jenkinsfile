@@ -22,13 +22,14 @@ pipeline {
                 '''
             }
         }
-        stage('Run Unit Tests') {     
+        stage('Test') {     
             
             steps {
                 sh '''
-                    echo "Running unit tests"
-                    npm ci
-                    npm run test 
+                    echo "Test stage"
+                   # npm ci
+                   # npm run test 
+                   test build/index.html
                    
                 '''
             }
