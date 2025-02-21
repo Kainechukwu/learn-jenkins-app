@@ -1,14 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine'
-            reuseNode true
-        }
-    }
+    agent any
 
     stages {
        
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
           
             steps {
                 sh '''
@@ -22,15 +23,19 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {     
+        stage('Test') {  
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }   
             
             steps {
                 sh '''
                     echo "Test stage"
-                   # npm ci
-                    npm test 
-                   test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
-                   
+                    test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
+                     npm test 
                 '''
             }
         }
