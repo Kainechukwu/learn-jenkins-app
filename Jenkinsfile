@@ -7,7 +7,13 @@ void installPNPM() {
 }
 
 void pnpmInstall() {
-    sh 'pnpm install'
+    // sh 'pnpm install'
+    sh '''
+    npm ci
+    npm run build
+
+    
+    '''
 }
 
 pipeline {
@@ -27,16 +33,17 @@ pipeline {
                 sh '''
                     echo "logging files and node versions"
                     ls -la
-                    node -v  
+                    node -v 
+
                     
                 '''
                  script {
-                        installPNPM()
+                        // installPNPM()
                         pnpmInstall()
                     }
             }
         }
-        stage('Test') {  
+        stage('Test') {   
             agent {
                 docker {
                     image 'node:18-alpine'
