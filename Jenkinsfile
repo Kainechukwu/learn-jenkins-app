@@ -14,6 +14,10 @@ void pnpmInstall() {
     sh 'pnpm install --frozen-lockfile'
 }
 
+void pnpmBuild() {
+    sh 'pnpm build'
+}
+
 pipeline {
     agent any
 
@@ -37,6 +41,7 @@ pipeline {
                 script {
                     installPNPM()
                     pnpmInstall()
+                    pnpmBuild()
                 }
             }
         }
