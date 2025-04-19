@@ -7,13 +7,8 @@ void installPNPM() {
 }
 
 void pnpmInstall() {
-    // sh 'pnpm install'
-    sh '''
-    npm ci
-    npm run build
-
-    
-    '''
+    sh 'pnpm install'
+ 
 }
 
 pipeline {
@@ -38,7 +33,7 @@ pipeline {
                     
                 '''
                  script {
-                        // installPNPM()
+                        installPNPM()
                         pnpmInstall()
                     }
             }
@@ -55,7 +50,7 @@ pipeline {
                 sh '''
                     echo "Test stagez"
                     test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
-                     npm test 
+                     pnpm test 
                 '''
             }
         }
