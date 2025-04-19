@@ -1,3 +1,15 @@
+void installPNPM() {
+    def status = sh(script: 'command -v pnpm || true', returnStdout: true).trim()
+
+    if (!status) {
+        sh 'npm install -g pnpm --force'
+    }
+}
+
+void pnpmInstall() {
+    sh 'pnpm install'
+}
+
 pipeline {
     agent any
 
@@ -16,11 +28,12 @@ pipeline {
                     echo "logging files and node versions"
                     ls -la
                     node -v  
-                    npm -v   
-                    npm ci
-                    pnpm run build 
-                    ls -la 
+                    
                 '''
+                 script {
+                        installPNPM()
+                        pnpmInstall()
+                    }
             }
         }
         stage('Test') {  
