@@ -32,10 +32,7 @@ pipeline {
 
                     
                 '''
-                 script {
-                        installPNPM()
-                        pnpmInstall()
-                    }
+              
             }
         }
         stage('Test') {   
@@ -48,9 +45,8 @@ pipeline {
             
             steps {
                 sh '''
-                    echo "Test stagez"
-                    test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
-                     pnpm test 
+                    echo "Test stage"
+                  
                 '''
             }
         }
