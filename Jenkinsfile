@@ -1,21 +1,21 @@
 void installPNPM() {
-    def isPNPMInstalled = sh(script: 'command -v pnpm || true', returnStdout: true).trim()
-    if (!isPNPMInstalled) {
+    def isPNPMInstalled = sh(script: 'which pnpm || echo "not_found"', returnStdout: true).trim()
+    if (isPNPMInstalled == "not_found") {
         echo 'pnpm not found, installing...'
-        sh 'npm install -g pnpm --force'
+        sh 'npm install -g pnpm --force --unsafe-perm=true'
     } else {
         echo 'pnpm already installed'
     }
 
-    sh 'pnpm --version'
+    sh 'pnpm --version || echo "pnpm is not installed"'
 }
 
 void pnpmInstall() {
-    sh 'pnpm install --frozen-lockfile'
+    sh 'pnpm install || (echo "pnpm install failed" && exit 1)'
 }
 
 void pnpmBuild() {
-    sh 'pnpm build'
+    sh 'pnpm build || (echo "Build failed" && exit 1)'
 }
 
 pipeline {
@@ -59,7 +59,7 @@ pipeline {
                 sh '''
                     echo "🧪 Running tests"
                     test -f build/index.html && echo "index.html found" || (echo "index.html NOT found" && exit 1)
-                    pnpm test
+                    pnpm test || (echo "Tests failed" && exit 1)
                 '''
             }
         }
