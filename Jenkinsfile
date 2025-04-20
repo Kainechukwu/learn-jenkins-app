@@ -18,6 +18,8 @@ void pnpmBuild() {
     sh 'pnpm build || (echo "Build failed" && exit 1)'
 }
 
+
+
 pipeline {
     agent any
 
@@ -37,6 +39,7 @@ pipeline {
                     ls -la
                     node -v
                     npm -v
+                    pnpm --version
                 '''
                 script {
                     installPNPM()
@@ -71,3 +74,4 @@ pipeline {
         }
     }
 }
+
