@@ -11,21 +11,11 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "Logging initial info"
                     ls -la
                     node --version
                     npm --version
-
-                    echo "Installing pnpm locally for node user"
-                    npm install --location=global pnpm
-
-                    echo "Installing dependencies with pnpm"
-                    pnpm install
-
-                    echo "Running build"
-                    pnpm run build
-
-                    echo "Post-build file list"
+                    npm ci
+                    npm run build
                     ls -la
                 '''
             }
