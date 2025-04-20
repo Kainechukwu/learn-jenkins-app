@@ -16,8 +16,8 @@ pipeline {
                     node --version
                     npm --version
 
-                    echo "Installing pnpm"
-                    npm install -g pnpm --force
+                    echo "Installing pnpm locally for node user"
+                    npm install --location=global pnpm
 
                     echo "Installing dependencies with pnpm"
                     pnpm install
