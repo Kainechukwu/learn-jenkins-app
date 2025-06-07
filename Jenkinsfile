@@ -13,6 +13,7 @@ pipeline {
             }
             steps {
                 sh '''
+                echo running
                 ls -la
                 node --version
                 npm --version
