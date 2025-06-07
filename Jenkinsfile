@@ -1,48 +1,22 @@
-// pipeline {
-//     agent any
-
-//     stages {
-   
-
-//         stage('Build') {
-//             agent {
-//                 docker {
-//                     image 'node:18-alpine'
-//                     reuseNode true
-//                 }
-//             }
-//             steps {
-//                 sh '''
-//                 echo running
-//                 ls -la
-//                 node --version
-//                 npm --version
-//                 npm ci
-//                 npm run build
-//                 ls -la
-//                 '''
-//             }
-//         }
-//     }
-// }
-pipeline{
+pipeline {
     agent any
-    tools {nodejs "my-nodejs"}
-    stages{
-        stage("Build"){
-            steps{
-                nodejs("my-nodejs") {
-                    sh 'npm install'
-                    sh 'npm build'
-                }
+
+    stages {
+        stage('w/o docker') {
+            steps {
+                sh 'echo "Without docker"'
             }
         }
-        stage("Start"){
-            steps{
-                nodejs("my-nodejs") {
-                    sh 'npm start'
+
+        stage('w/ docker') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
                 }
-                echo "App started successfully"
+            }
+            steps {
+                sh 'echo "With docker"'
+                sh 'npm --version'
             }
         }
     }
